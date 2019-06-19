@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.bbs.dao.BDao">
+	<select id="list" resultType="com.spring.bbs.dto.BDto">
+		SELECT * FROM (SELECT ROWNUM rnum, num, name, title, content, write_date, to_char(write_date, 'hh24:mi:ss') as write_time, ref, step, lev, write_cnt 
+		FROM ( SELECT * FROM spring_bbs ORDER BY ref desc, step asc ) spring_bbs) 
+		WHERE rnum &gt;= #{param1} and rnum &lt;= #{param2}
+	</select>
+	
+	<select id="pageCnt" resultType="int">
+		SELECT COUNT(*) AS num FROM spring_bbs
+	</select>
+	
+	<insert id="write" parameterType="map">
+		insert into spring_bbs values (spring_bbs_seq.nextval, #{name}, #{title}, #{content}, sysdate, spring_bbs_seq.currval, 0, 0, 0)
+	</insert>
+	
+	<delete id="delete">
+		DELETE spring_bbs WHERE num = #{num}
+	</delete>
+	
+	<select id="read" resultType="com.spring.bbs.dto.BDto">
+		SELECT num, name, title, content, write_date, to_char(write_date, 'hh24:mi:ss') as write_time, ref, step, lev, write_cnt FROM spring_bbs WHERE num = #{num}
+	</select>
+	
+	<!-- 조회수 올리기 -->
+	<update id="updateCnt">
+		UPDATE spring_bbs SET write_cnt = write_cnt + 1 WHERE num = #{num}
+	</update> 
+	
+	<!--  
+	<insert id="insertBoard">
+	<selectKey resultType="int" keyProperty="num" order="BEFORE">
+        SELECT NVL(MAX(num),0)+1 FROM TB_BOARD
+    </selectKey>  
+	INSERT INTO TB_BOARD (
+	  NUM, NAME, TITLE, CONTENT, READ_COUNT, WRITE_DATE
+	 ) VALUES (
+	  #{num}, #{name}, #{title}, #{content}, 0, SYSDATE
+	 )
+	</insert>
+	-->
+</mapper>
