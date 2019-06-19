@@ -17,4 +17,5 @@ public interface BDao {
 	public void updateCntUp(String num);
 	public void delete(String num);
 	public void update(@Param("title") String title, @Param("content") String content, @Param("num") String num);
+	public void reply(@Param("name") String name, @Param("title") String title, @Param("content") String content, @Param("num") String num);
 }

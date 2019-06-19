@@ -41,6 +41,15 @@
 		UPDATE spring_bbs SET title = #{title}, content = #{content} WHERE num = #{num}
 	</delete> 
 	
+	<!-- 답글 위치 가져오기 -->
+	<select id="replySearchStep">
+		SELECT NVL()
+	</select>
+	<!-- 답글  -->
+	<insert id="write" parameterType="map">
+		insert into spring_bbs values (spring_bbs_seq.nextval, #{name}, #{title}, #{content}, sysdate, #{ref}, 0, 0, 0)
+	</insert>
+	
 	
 	<!--  
 	<insert id="insertBoard">

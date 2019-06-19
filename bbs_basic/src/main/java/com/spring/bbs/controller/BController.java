@@ -123,5 +123,33 @@ public class BController {
 		return "redirect:list";
 	}
 	
+	// 답글 폼
+	@RequestMapping(value="/replyForm", method = RequestMethod.GET)
+	public String replyForm(HttpServletRequest request, Model model) {
+		logger.info("replyForm()");
+		
+		String num = request.getParameter("num");
+		
+		BDao dao= sqlSession.getMapper(BDao.class);
+		model.addAttribute("dto", dao.read(num));
+		
+		return "reply";
+	}
+	
+	// 답글쓰기
+	@RequestMapping(value="/update", method = RequestMethod.GET)
+	public String reply(HttpServletRequest request) {
+		logger.info("reply()");
+		
+		String name = request.getParameter("name");
+		String num = request.getParameter("num");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		BDao dao = sqlSession.getMapper(BDao.class);
+		dao.reply(name, title, content, num);
+		
+		return "redirect:list";
+	}
 	
 }
