@@ -88,9 +88,21 @@ public class BController {
 		logger.info("delete()");
 		
 		String num = request.getParameter("num");
+		String ref = request.getParameter("ref");
+		String step = request.getParameter("step");
+		String lev = request.getParameter("lev");
 		
-		BDao dao= sqlSession.getMapper(BDao.class);
-		dao.delete(num);
+		BDao dao = sqlSession.getMapper(BDao.class);
+		int replyChk = dao.replyCheck(num);
+		if (replyChk > 0) {
+			return "redirect:list";
+		} else {
+			dao.delete(num);
+			for(int updateLev = Integer.parseInt(lev) - 1; updateLev >= 0; updateLev--) {
+				dao.deleteReplyCntUpdate(ref, step, updateLev);
+			}
+			
+		}
 		
 		return "redirect:list";
 	}
@@ -137,17 +149,30 @@ public class BController {
 	}
 	
 	// 답글쓰기
-	@RequestMapping(value="/update", method = RequestMethod.GET)
+	@RequestMapping(value="/reply", method = RequestMethod.GET)
 	public String reply(HttpServletRequest request) {
 		logger.info("reply()");
 		
 		String name = request.getParameter("name");
-		String num = request.getParameter("num");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		String ref = request.getParameter("ref");
+		String step = request.getParameter("step");
+		String lev = request.getParameter("lev");
 		
 		BDao dao = sqlSession.getMapper(BDao.class);
-		dao.reply(name, title, content, num);
+		
+		int replyStep = dao.replySearchStep(ref, step, lev);
+		if (replyStep > 0) {
+			dao.replyStepUp(ref, replyStep);
+		} else {
+			replyStep = dao.replyMaxStep(ref);
+		}
+		dao.reply(name, title, content, ref, replyStep, lev);
+		
+		for(int updateLev = Integer.parseInt(lev); updateLev >= 0; updateLev--) {
+			dao.replyCntUpdate(ref, replyStep, updateLev);
+		}
 		
 		return "redirect:list";
 	}

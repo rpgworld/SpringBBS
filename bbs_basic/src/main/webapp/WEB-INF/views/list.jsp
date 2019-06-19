@@ -18,22 +18,26 @@ text-align: center;
 		<td>글번호</td>
 		<td>작성자</td>
 		<td>제목</td>
-		<td>내용</td>
 		<td>작성날짜</td>
 		<td>작성시간</td>
 		<td>조회수</td>
+		<td>답글수</td>
 		<td>삭제</td>
 	<tr>
 	<c:forEach items="${list}" var="dto">
 	<tr>
 		<td><a href="read?num=${dto.num }">${dto.num}</a></td>
 		<td>${dto.name}</td>
-		<td><a href="read?num=${dto.num }">${dto.title }</a></td>
-		<td style="text-align: left;"><a href="read?num=${dto.num }">${dto.content}</a></td>
+		<td style="text-align: left;"><a href="read?num=${dto.num }">
+		<c:forEach begin="1" end="${dto.lev}"> 
+			&nbsp;&nbsp;
+		</c:forEach>
+		${dto.title }</a></td>
 		<td>${dto.writeDate}</td>
 		<td>${dto.writeTime}</td>
-		<td>${dto.writeCnt}</td>
-		<td><a href="delete?num=${dto.num}">X</a></td>
+		<td>${dto.hit}</td>
+		<td>${dto.replyCnt }</td>
+		<td><a href="delete?num=${dto.num}&ref=${dto.ref }&step=${dto.step }&lev=${dto.lev }">X</a></td>
 	<tr>
 	</c:forEach>
 </table>

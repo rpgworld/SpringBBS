@@ -10,10 +10,11 @@ public class BDto {
 	private String content;
 	private Date writeDate;
 	private Time writeTime;
+	private int hit;
 	private int ref;
 	private int step;
 	private int lev;
-	private int writeCnt;
+	private int replyCnt;
 	
 	public int getNum() {
 		return num;
@@ -51,6 +52,12 @@ public class BDto {
 	public void setWriteTime(Time writeTime) {
 		this.writeTime = writeTime;
 	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
 	public int getRef() {
 		return ref;
 	}
@@ -69,12 +76,14 @@ public class BDto {
 	public void setLev(int lev) {
 		this.lev = lev;
 	}
-	public int getWriteCnt() {
-		return writeCnt;
+	public int getReplyCnt() {
+		return replyCnt;
 	}
-	public void setWriteCnt(int writeCnt) {
-		this.writeCnt = writeCnt;
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
 	}
+	
+	
 	
 	
 	

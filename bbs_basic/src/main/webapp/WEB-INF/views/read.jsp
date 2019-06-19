@@ -10,7 +10,11 @@
 </style>
 </head>
 <body>
-<form action="write" method="get">
+<form action="delete" method="get">
+<input type="hidden" name="num" value="${dto.num }">
+<input type="hidden" name="ref" value="${dto.ref }">
+<input type="hidden" name="step" value="${dto.step }">
+<input type="hidden" name="lev" value="${dto.lev }">
 <table cellpadding="0" cellspacing="0" border="1" style="width: 700px" >
 	<tr>
 		<th>제목</th>
@@ -22,7 +26,7 @@
 		<th>작성자</th>
 		<th>${dto.name}</th>
 		<th>조회수</th>
-		<th>${dto.writeCnt }</th>
+		<th>${dto.hit }</th>
 	</tr>
 	<tr>
 		<th>내용</th>
@@ -32,7 +36,7 @@
 		<td colspan="4">
 			<a href="list">목록으로</a>
 			<a href="replyForm?num=${dto.num }" style="float:right;">답글</a>
-			<a href="delete?num=${dto.num }" style="float:right;">삭제하기</a>
+			<input type="submit" value="삭제하기" style="float:right">
 			<a href="updateForm?num=${dto.num }" style="float:right;">수정하기</a>
 		</td>
 	</tr>

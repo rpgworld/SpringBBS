@@ -9,7 +9,9 @@
 </head>
 <body>
 <form action="reply" method="get">
-<input type="hidden" value="${dto.num }">
+<input type="hidden" name="ref" value="${dto.ref }">
+<input type="hidden" name="step" value="${dto.step }">
+<input type="hidden" name="lev" value="${dto.lev }">
 <table style="width: 700px; cellpadding: 0; cellspacing: 0; border: 1;" >
 	<tr>
 		<th>제목</th>
