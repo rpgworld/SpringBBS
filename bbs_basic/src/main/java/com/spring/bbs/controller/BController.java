@@ -23,6 +23,7 @@ public class BController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BController.class);
 	
+	// 게시글 목록
 	@RequestMapping(value="/list")
 	public String list(HttpServletRequest request, Model model) {
 		logger.info("list()");
@@ -33,6 +34,7 @@ public class BController {
 		if (request.getParameter("curPage") != null) {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}
+		
 		int start = WRITING_PER_PAGE * (curPage - 1) + 1;
 		int end = WRITING_PER_PAGE * curPage;
 		model.addAttribute("list", dao.list(start, end));
@@ -43,6 +45,8 @@ public class BController {
 		
 		return "list";
 	}
+	
+	// 글쓰기폼
 	@RequestMapping(value="/writeForm")
 	public String writeForm() {
 		logger.info("writeForm()");
@@ -50,6 +54,7 @@ public class BController {
 		return "write";
 	}
 	
+	// 글쓰기
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public String write(HttpServletRequest request, Model model) {
 		logger.info("write()");
@@ -63,6 +68,7 @@ public class BController {
 		return "redirect:list";
 	}
 	
+	// 글읽기
 	@RequestMapping(value="/read", method = RequestMethod.GET)
 	public String read(HttpServletRequest request, Model model) {
 		logger.info("read()");
@@ -70,12 +76,13 @@ public class BController {
 		String num = request.getParameter("num");
 		
 		BDao dao = sqlSession.getMapper(BDao.class);
-		dao.updateCnt(num);
+		dao.updateCntUp(num);
 		model.addAttribute("dto", dao.read(num));
 		
 		return "read";
 	}
 	
+	// 글삭제
 	@RequestMapping(value="/delete", method = RequestMethod.GET)
 	public String delete(HttpServletRequest request) {
 		logger.info("delete()");
@@ -87,5 +94,34 @@ public class BController {
 		
 		return "redirect:list";
 	}
+	
+	// 글수정폼
+	@RequestMapping(value="/updateForm", method = RequestMethod.GET)
+	public String updateForm(HttpServletRequest request, Model model) {
+		logger.info("updateForm()");
+		
+		String num = request.getParameter("num");
+		
+		BDao dao= sqlSession.getMapper(BDao.class);
+		model.addAttribute("dto", dao.read(num));
+		
+		return "update";
+	}
+	
+	// 글수정
+	@RequestMapping(value="/update", method = RequestMethod.GET)
+	public String update(HttpServletRequest request) {
+		logger.info("update()");
+		
+		String num = request.getParameter("num");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		BDao dao = sqlSession.getMapper(BDao.class);
+		dao.update(title, content, num);
+		
+		return "redirect:list";
+	}
+	
 	
 }

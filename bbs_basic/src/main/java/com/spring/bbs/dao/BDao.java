@@ -14,6 +14,7 @@ public interface BDao {
 	 *  매퍼의 해당 메소드에 parameterType="map" 를 추가해줍니다. */
 	public void write(@Param("name") String name, @Param("title") String title, @Param("content") String content);
 	public BDto read(String num);
-	public void updateCnt(String num);
+	public void updateCntUp(String num);
 	public void delete(String num);
+	public void update(@Param("title") String title, @Param("content") String content, @Param("num") String num);
 }

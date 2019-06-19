@@ -6,34 +6,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style>
-</style>
 </head>
 <body>
-<form action="write" method="get">
+<form action="update" method="get">
+<input type="hidden" name="num" value="${dto.num }">
 <table cellpadding="0" cellspacing="0" border="1" style="width: 700px" >
 	<tr>
 		<th>제목</th>
-		<th>${dto.title }</th>
-		<th>작성일</th>
-		<th>${dto.writeDate } ${dto.writeTime }</th>
-	<tr>
-	<tr>
-		<th>작성자</th>
-		<th>${dto.name}</th>
-		<th>조회수</th>
-		<th>${dto.writeCnt }</th>
+		<td><input type="text" name="title" maxlength="100" style="width: 98%;" value="${dto.title }"></td>
 	</tr>
 	<tr>
+		<th>작성자</th>
+		<td><input type="text" name="name" maxlength="100" style="width: 98%;" value=${dto.name } readOnly></td>
+	<tr>
+	<tr>
 		<th>내용</th>
-		<td colspan="3"><textarea style="height: 200px; width: 98%;" name="mContent" readOnly>${dto.content }</textarea></td>
+		<td><textarea style="height: 200px; width: 98%;" name="content">${dto.content }</textarea></td>
 	<tr>
 	<tr>
-		<td colspan="4">
+		<td colspan="2">
 			<a href="list">목록으로</a>
-			<a href="replyForm?num=${dto.num }" style="float:right;">답글</a>
-			<a href="delete?num=${dto.num }" style="float:right;">삭제하기</a>
-			<a href="updateForm?num=${dto.num }" style="float:right;">수정하기</a>
+			<input type="submit" style="float: right" value="수정하기">
 		</td>
 	</tr>
 </table>
