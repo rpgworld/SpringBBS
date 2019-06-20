@@ -13,4 +13,6 @@
 	<select id="login" resultType="String">
 		SELECT pw FROM spring_user WHERE id = #{id} 
 	</select>
+	
+	
 </mapper>

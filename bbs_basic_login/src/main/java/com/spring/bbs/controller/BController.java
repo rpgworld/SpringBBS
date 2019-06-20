@@ -1,6 +1,7 @@
 package com.spring.bbs.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -48,9 +49,15 @@ public class BController {
 	
 	// 글쓰기폼
 	@RequestMapping(value="/writeForm")
-	public String writeForm() {
+	public String writeForm(HttpServletRequest request) {
 		logger.info("writeForm()");
-
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") == null) {
+			session.setAttribute("msgType", "경고창");
+			session.setAttribute("msgContent", "로그인이 필요합니다.");
+			return "redirect:loginForm";
+		}
 		return "write";
 	}
 	
@@ -58,9 +65,15 @@ public class BController {
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public String write(HttpServletRequest request, Model model) {
 		logger.info("write()");
-		String name = request.getParameter("name");
+		
+		String name = null;
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") != null) {
+			name = (String) session.getAttribute("id");
+		}
 		
 		BDao dao= sqlSession.getMapper(BDao.class);
 		dao.write(name, title, content);
@@ -87,24 +100,40 @@ public class BController {
 	public String delete(HttpServletRequest request) {
 		logger.info("delete()");
 		
+		String id = null;
 		String num = request.getParameter("num");
+		String name = request.getParameter("name");
 		String ref = request.getParameter("ref");
 		String step = request.getParameter("step");
 		String lev = request.getParameter("lev");
 		
 		BDao dao = sqlSession.getMapper(BDao.class);
-		int replyChk = dao.replyCheck(num);
-		if (replyChk > 0) {
-			return "redirect:list";
+		
+		HttpSession session = request.getSession();
+		if (session.getAttribute("id") == null) {
+			session.setAttribute("msgType", "경고창");
+			session.setAttribute("msgContent", "로그인이 필요합니다.");
+			return "redirect:loginForm";
 		} else {
-			dao.delete(num);
-			for(int updateLev = Integer.parseInt(lev) - 1; updateLev >= 0; updateLev--) {
-				dao.deleteReplyCntUpdate(ref, step, updateLev);
+			id = (String) session.getAttribute("id");
+			if(!name.equals(id)) {
+				session.setAttribute("msgType", "경고창");
+				session.setAttribute("msgContent", "삭제 권한이 없습니다.");
+				return "redirect:list";
 			}
 			
+			int replyChk = dao.replyCheck(num);
+			if (replyChk > 0) {
+				return "redirect:list";
+			} else {
+				dao.delete(num);
+				for(int updateLev = Integer.parseInt(lev) - 1; updateLev >= 0; updateLev--) {
+					dao.deleteReplyCntUpdate(ref, step, updateLev);
+				}	
+			}
+			
+			return "redirect:list";
 		}
-		
-		return "redirect:list";
 	}
 	
 	// 글수정폼
@@ -112,12 +141,26 @@ public class BController {
 	public String updateForm(HttpServletRequest request, Model model) {
 		logger.info("updateForm()");
 		
+		String id = null;
 		String num = request.getParameter("num");
-		
-		BDao dao= sqlSession.getMapper(BDao.class);
-		model.addAttribute("dto", dao.read(num));
-		
-		return "update";
+		String name = request.getParameter("name");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") == null) {
+			session.setAttribute("msgType", "경고창");
+			session.setAttribute("msgContent", "로그인이 필요합니다.");
+			return "redirect:loginForm";
+		} else {
+			id = (String) session.getAttribute("id");
+			if(!name.equals(id)) {
+				session.setAttribute("msgType", "경고창");
+				session.setAttribute("msgContent", "수정 권한이 없습니다.");
+				return "redirect:list";
+			}
+			BDao dao= sqlSession.getMapper(BDao.class);
+			model.addAttribute("dto", dao.read(num));
+			
+			return "update";
+		}
 	}
 	
 	// 글수정
@@ -141,11 +184,17 @@ public class BController {
 		logger.info("replyForm()");
 		
 		String num = request.getParameter("num");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") == null) {
+			session.setAttribute("msgType", "경고창");
+			session.setAttribute("msgContent", "로그인이 필요합니다.");
+			return "redirect:loginForm";
+		} else {
+			BDao dao= sqlSession.getMapper(BDao.class);
+			model.addAttribute("dto", dao.read(num));
 		
-		BDao dao= sqlSession.getMapper(BDao.class);
-		model.addAttribute("dto", dao.read(num));
-		
-		return "reply";
+			return "reply";
+		}
 	}
 	
 	// 답글쓰기
@@ -153,7 +202,11 @@ public class BController {
 	public String reply(HttpServletRequest request) {
 		logger.info("reply()");
 		
-		String name = request.getParameter("name");
+		String name = null;
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") == null) {
+			name = (String) session.getAttribute("id");
+		}
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String ref = request.getParameter("ref");

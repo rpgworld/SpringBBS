@@ -1,10 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Insert title here</title>
+<c:if test="${sessionScope.msgType != null }" >
+	<c:set var="msgType" value="${sessionScope.msgType }"/>
+	<c:set var="msgContent" value="${sessionScope.msgContent }"/>
+</c:if>
+<script>
+	var msgType = '${msgType}';
+	var msgContent = '${msgContent}';
+	
+$('document').ready(function(){
+	if(msgType != '') {
+		alert(msgType + ' + ' + msgContent);
+	}
+});
+
+</script>
 </head>
 <body>
 <form action="login" method="post">
@@ -19,11 +36,16 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<a href="list">∏Ò∑œ¿∏∑Œ</a>
-			<input style="float: right;" type="submit" value="∑Œ±◊¿Œ">
+			<a href="list">Î™©Î°ùÏúºÎ°ú</a>
+			<input style="float: right;" type="submit" value="Î°úÍ∑∏Ïù∏">
 		</td>
 	</tr>
 </table>
 </form>
+
+<c:if test="${sessionScope.msgType != null }">
+	<c:remove var="msgType" scope="session" />
+	<c:remove var="msgContent" scope="session" />
+</c:if>
 </body>
 </html>

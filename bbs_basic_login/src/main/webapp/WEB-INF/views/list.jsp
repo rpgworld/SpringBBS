@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Insert title here</title>
 <style>
 table, tr, th, td {
@@ -15,29 +16,39 @@ td {
 text-align: center;
 }
 </style>
+
+<c:if test="${sessionScope.msgType != null }" >
+	<c:set var="msgType" value="${sessionScope.msgType }"/>
+	<c:set var="msgContent" value="${sessionScope.msgContent }"/>
+</c:if>
+<script>
+	var msgType = '${msgType}';
+	var msgContent = '${msgContent}';
+	
+$('document').ready(function(){
+	if(msgType != '') {
+		alert(msgType + ' + ' + msgContent);
+	}
+});
+
+</script>
 </head>
 <body>
-
-	<%  
-	String id = null;
 	
-	if (session.getAttribute("id") != null ) {
-		id = (String) session.getAttribute("id");	
-	}
-	
-	if (id != null) {
-	%>
-		<%=id %> 님 환영합니다. <br>
-		
-		<a href="logout">로그아웃</a>
-	<%
-	} else {
-	%>
-		<a href="loginForm">로그인</a>
-		<a href="joinForm">회원가입</a>
-	<% } %>
+	<c:if test="${sessionScope.id != null }">
+		<c:set var="id" value="${sessionScope.id }" />
+	</c:if>
 
-
+	<c:choose>
+		<c:when test="${id == null }">
+			<a href="loginForm">로그인</a> 
+			<a href="joinForm">회원가입</a>
+		</c:when>
+		<c:otherwise>
+			<c:out value="${id }님 환영합니다."/> <br>
+			<a href="logout">로그아웃</a>
+		</c:otherwise>
+	</c:choose>
 <table style="width: 700px;">
 	<tr>
 		<td>글번호</td>
@@ -71,5 +82,10 @@ text-align: center;
 <c:forEach var="i" begin="1" end="${pageCnt }">
 	<a href="list?curPage=${i }">${i }</a>
 </c:forEach>
+
+<c:if test="${sessionScope.msgType != null }">
+	<c:remove var="msgType" scope="session" />
+	<c:remove var="msgContent" scope="session" />
+</c:if>
 </body>
 </html>

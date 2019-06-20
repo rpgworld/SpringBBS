@@ -24,20 +24,20 @@
 	<tr>
 	<tr>
 		<th>작성자</th>
-		<th>${dto.name}</th>
+		<th><input type="text" name="name" value="${dto.name }" readOnly></th>
 		<th>조회수</th>
 		<th>${dto.hit }</th>
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td colspan="3"><textarea style="height: 200px; width: 98%;" name="mContent" readOnly>${dto.content }</textarea></td>
+		<td colspan="3"><textarea style="height: 200px; width: 98%;" name="content" readOnly>${dto.content }</textarea></td>
 	<tr>
 	<tr>
 		<td colspan="4">
 			<a href="list">목록으로</a>
 			<a href="replyForm?num=${dto.num }" style="float:right;">답글</a>
 			<input type="submit" value="삭제하기" style="float:right">
-			<a href="updateForm?num=${dto.num }" style="float:right;">수정하기</a>
+			<a href="updateForm?num=${dto.num }&name=${dto.name}" style="float:right;">수정하기</a>
 		</td>
 	</tr>
 </table>
