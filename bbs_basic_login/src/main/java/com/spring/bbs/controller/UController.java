@@ -45,11 +45,12 @@ public class UController {
 				session.setAttribute("msgContent", "로그인에 성공하셨습니다.");
 				
 				return "redirect:list";
+			} else {
+				session.setAttribute("msgType", "실패");
+				session.setAttribute("msgContent", "비밀번호가 일치하지 않습니다.");
+				
+				return "redirect:loginForm";
 			}
-			session.setAttribute("msgType", "실패");
-			session.setAttribute("msgContent", "비밀번호가 일치하지 않습니다.");
-			
-			return "redirect:loginForm";
 		} else {
 			session.setAttribute("msgType", "실패");
 			session.setAttribute("msgContent", "아이디가 존재하지 않습니다.");

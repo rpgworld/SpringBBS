@@ -19,6 +19,7 @@ public interface BDao {
 	public void delete(String num);
 	public void deleteReplyCntUpdate(@Param("ref") String ref, @Param("step") String step, @Param("lev") int lev);
 	public void update(@Param("title") String title, @Param("content") String content, @Param("num") String num);
+	public ArrayList<BDto> search(@Param("searchOption") String searchOption, @Param("searchWord") String searchWord, @Param("start") int start, @Param("end") int end);
 	public int replySearchStep(@Param("ref") String ref, @Param("step") String step, @Param("lev") String lev);
 	public void replyStepUp(@Param("ref") String ref, @Param("replyStep") int replyStep);
 	public int replyMaxStep(String ref);

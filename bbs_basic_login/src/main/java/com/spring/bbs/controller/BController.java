@@ -124,6 +124,8 @@ public class BController {
 			
 			int replyChk = dao.replyCheck(num);
 			if (replyChk > 0) {
+				session.setAttribute("msgType", "경고창");
+				session.setAttribute("msgContent", "답글이 있어 삭제가 불가능합니다.");
 				return "redirect:list";
 			} else {
 				dao.delete(num);
@@ -178,6 +180,32 @@ public class BController {
 		return "redirect:list";
 	}
 	
+	// 검색
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public String search(HttpServletRequest request, Model model) {
+		logger.info("search()");
+		
+		String searchOption = request.getParameter("searchOption");
+		String searchWord = request.getParameter("searchWord");
+		
+		BDao dao= sqlSession.getMapper(BDao.class);
+		
+		int curPage = 1;
+		if (request.getParameter("curPage") != null) {
+			curPage = Integer.parseInt(request.getParameter("curPage"));
+		}
+		
+		int start = WRITING_PER_PAGE * (curPage - 1) + 1;
+		int end = WRITING_PER_PAGE * curPage;
+		model.addAttribute("list", dao.search(searchOption, searchWord, start, end));
+		
+		
+		int pageCnt = (dao.pageCnt() - 1) / WRITING_PER_PAGE + 1;
+		model.addAttribute("pageCnt", pageCnt);
+		
+		return "list";
+	}
+	
 	// 답글 폼
 	@RequestMapping(value="/replyForm", method = RequestMethod.GET)
 	public String replyForm(HttpServletRequest request, Model model) {
@@ -204,7 +232,7 @@ public class BController {
 		
 		String name = null;
 		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) {
+		if(session.getAttribute("id") != null) {
 			name = (String) session.getAttribute("id");
 		}
 		String title = request.getParameter("title");

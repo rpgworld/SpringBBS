@@ -18,10 +18,6 @@
 		<td><input type="text" name="title" maxlength="100" style="width: 98%;" value="[RE]&nbsp;" ></td>
 	</tr>
 	<tr>
-		<th>작성자</th>
-		<td><input type="text" name="name" maxlength="100" style="width: 98%;"></td>
-	<tr>
-	<tr>
 		<th>내용</th>
 		<td><textarea style="height: 200px; width: 98%;" name="content"></textarea></td>
 	<tr>

@@ -49,6 +49,7 @@ $('document').ready(function(){
 			<a href="logout">로그아웃</a>
 		</c:otherwise>
 	</c:choose>
+	 
 <table style="width: 700px;">
 	<tr>
 		<td>글번호</td>
@@ -73,7 +74,7 @@ $('document').ready(function(){
 		<td>${dto.writeTime}</td>
 		<td>${dto.hit}</td>
 		<td>${dto.replyCnt }</td>
-		<td><a href="delete?num=${dto.num}&ref=${dto.ref }&step=${dto.step }&lev=${dto.lev }">X</a></td>
+		<td><a href="delete?num=${dto.num}&ref=${dto.ref }&step=${dto.step }&lev=${dto.lev }&name=${dto.name}">X</a></td>
 	<tr>
 	</c:forEach>
 </table>
@@ -82,6 +83,18 @@ $('document').ready(function(){
 <c:forEach var="i" begin="1" end="${pageCnt }">
 	<a href="list?curPage=${i }">${i }</a>
 </c:forEach>
+
+<form action="search" method="get">
+	<select name="searchOption">
+		<option value="title">제목</option>
+		<option value="content">내용</option>
+		<option value="both">제목+내용</option>
+		<option value="name">작성자</option>
+	</select>
+	<input type="text" name="searchWord">
+	<input type="submit" value="검색">
+</form>
+
 
 <c:if test="${sessionScope.msgType != null }">
 	<c:remove var="msgType" scope="session" />
