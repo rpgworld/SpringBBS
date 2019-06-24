@@ -5,10 +5,10 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maxmun-scale=1, minimun-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximun-scale=1, minimum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Do it!!!!</title>
-    <link rel="stylesheet" type="text/css" href="http://localhost:8383/bbs/resources/css/reset.css?ver=1.0">
+    <title>Movie Cafe</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/reset.css?ver=1.0">
     <link rel="stylesheet" href="#">
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
@@ -40,6 +40,10 @@ text-align: center;
 }
 .info_list li a {
 display: block;
+padding: 15px 0;
+padding: 0.938rem 0;
+}
+.info_list li:nth-child(3) img {
 padding: 15px 0;
 padding: 0.938rem 0;
 }
@@ -90,8 +94,33 @@ text-transform: uppercase;
 .gnb li span {
 width: 20%;
 text-indent: -9999px;
-background: url(./images/s_images/sub_menu_toggle_btn.png) center center no-repeat;
+background: url(resources/images/s_images/sub_menu_toggle_btn.png) center center no-repeat;
 cursor: pointer; /* 마우스 모양 손모양으로 변경 */
+}
+.user_list {
+display: none;
+background: #2c3e50;
+text-align: center;
+padding: 0;
+
+}
+.user_list li {
+display: inline-block;
+height: 30px;
+height: 1.875rem;
+margin: 0;
+width: 48%;
+padding: 0;
+padding-top: 10px;
+}
+.user_list li:first-child{
+border-right: 1px solid #a9a9a9;
+}
+.user_list li a {
+color: white;
+font-weight: bold;
+font-size: 0.938em;
+font-size: 0.938rem;
 }
 .menu_toggle_btn {
 display: block;
@@ -105,7 +134,7 @@ top: 0.625rem;
 right: 10px;
 right: 0.625rem;
 text-indent: -9999px;
-background: url(./images/s_images/menu_toggle_btn.png) no-repeat;
+background: url(resources/images/s_images/menu_toggle_btn.png) no-repeat;
 cursor: pointer;
 }
 /* 서브 헤더 영역 css */
@@ -266,6 +295,32 @@ right: 0;
 z-index: 20;
 width: 40.10416667%; /* 308px / 768px */
 }
+.info_list li:nth-child(3) img {
+padding: 0;
+padding: 0;
+}
+.user_list {
+margin-top: 4px;
+}
+.user_list li {
+display: block;
+height: 30px;
+height: 1.875rem;
+margin: 0;
+width: 100%;
+padding: 0;
+padding-top: 10px;
+}
+.user_list li:first-child{
+border-right: 0;
+border-bottom: 1px solid #e9e9e9;
+}
+.user_list li a {
+color: white;
+font-weight: bold;
+font-size: 0.938em;
+font-size: 0.938rem;
+}
 .menu_toggle_btn {
 top: 50%;
 right: 30px;
@@ -383,23 +438,45 @@ text-align: left;
 }
 </style>
 <script>
-    $(function(){
-        $(".menu_toggle_btn").click(function(){
-            $(".gnb").stop().slideToggle("fast");
-            // stop() : 현재 실행중인 효과를 모두 중지, slideToggle : 숨겨진 요소를 펴고 접는 기능
-        });
+	
+$('document').ready(function(){
+	
+	/* 회원 관리 버튼 이벤트 */
+	$('.user').click(function(){
+		$('.user_list').stop().slideToggle('fast');
+	});
+	
+	/* 전체 메뉴 토글 버튼 이벤트 */
+	$(".menu_toggle_btn").click(function(){
+        $(".gnb").stop().slideToggle("fast");
+        // stop() : 현재 실행중인 효과를 모두 중지, slideToggle : 숨겨진 요소를 펴고 접는 기능
     });
+});
+
+
 </script>
 </head>
 <body>
 	<div id="wrap">
         <section class="info_section">
             <ul class="info_list">
-                <li><a href="index"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_01.png" alt=""></a></li>
-                <li><a href=""><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_02.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_03.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_04.png" alt=""></a></li>
+                <li><a href="index"><img src="resources/images/s_images/info_icon_01.png" alt=""></a></li>
+                <li><a href="#"><img src="resources/images/s_images/info_icon_02.png" alt=""></a></li>
+                <li><img class="user" src="resources/images/s_images/info_icon_03.png" alt=""></li>
+                <li><a href="#"><img src="resources/images/s_images/info_icon_04.png" alt=""></a></li>
             </ul>
+            <ul class="user_list">
+            <c:choose>
+            	<c:when test="${id != null}">
+            		<li><a href="userUpdate">회원정보수정</a></li>
+	       			<li><a href="logout">로그아웃</a></li>
+            	</c:when>
+            	<c:otherwise>
+	       			<li><a href="loginForm">로그인</a></li>
+	       			<li><a href="joinForm">회원가입</a></li>
+	       		</c:otherwise>
+       		</c:choose>
+       		</ul>
         </section>
         <header class="header">
             <h1 class="logo">

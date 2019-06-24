@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Movie Cafe</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no">
 <link rel="stylesheet" type="text/css" href="resources/css/reset.css?ver=1.0">
 <link rel="stylesheet" href="#">
@@ -39,6 +39,10 @@ text-align: center;
 }
 .info_list li a {
 display: block;
+padding: 15px 0;
+padding: 0.938rem 0;
+}
+.info_list li:nth-child(3) img {
 padding: 15px 0;
 padding: 0.938rem 0;
 }
@@ -89,8 +93,33 @@ text-transform: uppercase;
 .gnb li span {
 width: 20%;
 text-indent: -9999px;
-background: url(http://localhost:8383/bbs/resources/images/s_images/sub_menu_toggle_btn.png) center center no-repeat;
+background: url(resources/images/s_images/sub_menu_toggle_btn.png) center center no-repeat;
 cursor: pointer; /* 마우스 모양 손모양으로 변경 */
+}
+.user_list {
+display: none;
+background: #2c3e50;
+text-align: center;
+padding: 0;
+
+}
+.user_list li {
+display: inline-block;
+height: 30px;
+height: 1.875rem;
+margin: 0;
+width: 48%;
+padding: 0;
+padding-top: 10px;
+}
+.user_list li:first-child{
+border-right: 1px solid #a9a9a9;
+}
+.user_list li a {
+color: white;
+font-weight: bold;
+font-size: 0.938em;
+font-size: 0.938rem;
 }
 .menu_toggle_btn {
 display: block;
@@ -104,7 +133,7 @@ top: 0.625rem;
 right: 10px;
 right: 0.625rem;
 text-indent: -9999px;
-background: url(http://localhost:8383/bbs/resources/images/s_images/menu_toggle_btn.png) no-repeat;
+background: url(resources/images/s_images/menu_toggle_btn.png) no-repeat;
 cursor: pointer;
 }
 /* 서브 헤더 영역 css */
@@ -173,15 +202,9 @@ border: 0;
 .id_input {
 border-right: none;
 }
+/* 중복체크 td */
 .id_check {
-/* border-left: none; */
-padding: 0px;
-width: 40px;
-}
-.id_check input{
-/* border-left: none; */
-padding: 0px;
-width: 100px;
+border-left: none;
 }
 td input:focus {
 outline: 1px solid auto;
@@ -213,6 +236,8 @@ color:#fff;
 margin-top: 10px;
 float: right;
 width: 100%;
+font-size:0.813em;
+font-size:0.813rem;
 }
 table, tr, td {
 border: 1px solid #e9e9e9;
@@ -271,6 +296,32 @@ right: 0;
 z-index: 20;
 width: 40.10416667%; /* 308px / 768px */
 }
+.info_list li:nth-child(3) img {
+padding: 0;
+padding: 0;
+}
+.user_list {
+margin-top: 4px;
+}
+.user_list li {
+display: block;
+height: 30px;
+height: 1.875rem;
+margin: 0;
+width: 100%;
+padding: 0;
+padding-top: 10px;
+}
+.user_list li:first-child{
+border-right: 0;
+border-bottom: 1px solid #e9e9e9;
+}
+.user_list li a {
+color: white;
+font-weight: bold;
+font-size: 0.938em;
+font-size: 0.938rem;
+}
 .menu_toggle_btn {
 top: 50%;
 right: 30px;
@@ -283,6 +334,14 @@ margin-top: -0.938rem;
 .content_section {
 padding: 40px;
 padding: 2.500rem;
+}
+.join_btn, .id_check_btn {
+width:70px;
+width:4.375rem;
+height:30px;
+height:1.875rem;
+font-size:0.813em;
+font-size:0.813rem;
 }
 
 /* 푸터 css */
@@ -364,6 +423,11 @@ order: 2;
 order: 3;
 padding: 60px;
 padding: 3.750rem;
+width: 70%;
+margin-left: 15%;
+}
+.join_table {
+/* width: 50%; */
 }
 /* 푸터 영역 css */
 .footer {
@@ -400,11 +464,23 @@ function pw_check() {
 	<div id="wrap">
         <section class="info_section">
             <ul class="info_list">
-                <li><a href="index"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_01.png" alt=""></a></li>
-                <li><a href=""><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_02.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_03.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_04.png" alt=""></a></li>
+                <li><a href="index"><img src="resources/images/s_images/info_icon_01.png" alt=""></a></li>
+                <li><a href="#"><img src="resources/images/s_images/info_icon_02.png" alt=""></a></li>
+                <li><img class="user" src="resources/images/s_images/info_icon_03.png" alt=""></li>
+                <li><a href="#"><img src="resources/images/s_images/info_icon_04.png" alt=""></a></li>
             </ul>
+            <ul class="user_list">
+            <c:choose>
+            	<c:when test="${id != null}">
+            		<li><a href="userUpdate">회원정보수정</a></li>
+	       			<li><a href="logout">로그아웃</a></li>
+            	</c:when>
+            	<c:otherwise>
+	       			<li><a href="loginForm">로그인</a></li>
+	       			<li><a href="joinForm">회원가입</a></li>
+	       		</c:otherwise>
+       		</c:choose>
+       		</ul>
         </section>
         <header class="header">
             <h1 class="logo">
@@ -421,11 +497,11 @@ function pw_check() {
             <span class="menu_toggle_btn">전체 메뉴 토글 버튼</span>
         </header>
         <section class="sub_header_section">
-            <h2>글열람</h2>
+            <h2>회원가입</h2>
             <ul class="breadcrum_list">
                 <li><a href="index">홈 / </a></li>
-                <li><a href="list">게시판 / </a></li>
-                <li><a href="#">글열람 </a></li>
+                <li><a href="loginForm">로그인 / </a></li>
+                <li><a href="joinForm">회원가입 </a></li>
             </ul>
         </section>
         <section class="content_section">
