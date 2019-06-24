@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maxmun-scale=1, minimun-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Do it!!!!</title>
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" href="#">
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style>
+/* 모바일용 css */
+/* 기본 css */
+#wrap {
+display: flex;
+flex-flow: column nowrap;
+width: 80%;
+margin: 0 auto;
+max-width: 1200px;
+}
+#wrap section {
+box-sizing: border-box;
+}
+/* 인포메이션 영역 css */
+.info_section {
+order: 1;
+width: 100%;
+background: #2ecc71;
+border-bottom: 1px solid #39d67c;
+}
+.info_list {
+display: flex;
+}
+.info_list li {
+width: 25%;
+text-align: center;
+}
+.info_list li a {
+display: block;
+padding: 15px 0;
+padding: 0.938rem 0;
+}
+/* 헤더 영역 css */
+.header {
+display: flex;
+order: 2;
+flex-direction: column; /* 모바일의 경우, 로고 다음에 메뉴가 세로로 배치 */
+position: relative; /* 토글이 놓일 기준을 설정하기 위해서 */
+width: 100%;
+}
+.logo {
+width: 100%;
+padding: 30px 0;
+padding: 1.875rem 0;
+font-size: 1.188em;
+font-size: 1.188rem;
+line-height: 21px;
+line-height: 1.313rem;
+text-align: center;
+text-transform: uppercase;
+background: #2ecc71;
+text-shadow: 0px 1px 1px #25ab5e;
+}
+.nav {
+order: 2;
+width: 100%;
+}
+/* 자바스크립트로 클릭 이벤트 구현 후에 추가 */
+.gnb {
+display: none;
+}
+.gnb li {
+display: flex;
+background: #2c3e50;
+}
+.gnb li a {
+width: 80%;
+padding: 20px 0;
+padding: 1.250rem 0;
+font-size: 0.938em;
+font-size: 0.938rem;
+text-indent: 20px;
+text-indent: 1.250rem;
+font-weight: bold;
+text-transform: uppercase;
+}
+.gnb li span {
+width: 20%;
+text-indent: -9999px;
+background: url(./images/s_images/sub_menu_toggle_btn.png) center center no-repeat;
+cursor: pointer; /* 마우스 모양 손모양으로 변경 */
+}
+.menu_toggle_btn {
+display: block;
+width: 30px;
+width: 1.875rem;
+height: 30px;
+height: 1.875rem;
+position: absolute;
+top: 10px;
+top: 0.625rem;
+right: 10px;
+right: 0.625rem;
+text-indent: -9999px;
+background: url(./images/s_images/menu_toggle_btn.png) no-repeat;
+cursor: pointer;
+}
+/* 슬라이더 영역 css */
+.slider_section {
+display: flex;
+justify-content: space-between; /* 양쪽 끝에 붙이고 나머지는 동일한 빈공간 + 버튼들을 왼쪽 오른쪽에 배치 */
+align-items: center; /* 교차축의 중앙 */
+order: 3;
+width: 100%; /* 모바일 이니께 */
+height: 300px;
+height: 18.750rem;
+background: url(./images/p_images/slider_01.jpg) center center no-repeat;
+}
+.slider_section span {
+width: 34px; /* width, height 값으로 두개인 버튼을 하나만 표시되도록 설정 */
+width: 2.125rem;
+height: 39px;
+height: 2.438rem;
+text-indent: -9999px;
+background: url(./images/s_images/slider_arrow.png) no-repeat;
+cursor: pointer;
+}
+span.prev_btn {
+margin-left: -10px;
+margin-left: -0.625rem;
+background-position: 0 0; 
+}
+span.next_btn {
+margin-right: -10px;
+margin-right: -0.625rem;
+background-position: -34px 0; /* 이걸로 왼쪽 -> 오른쪽 버튼으로 바꿈 */
+}
+/* 최근 글 영역, 인기 글 영역 css */
+.latest_post_section {
+order: 4;
+background: #ffc40f;
+text-shadow: 0px 1px 1px #b98e0b;
+}
+.popular_post_section {
+order: 5;
+background: #a660c2;
+text-shadow: 0px 1px 1px #714185;
+}
+.latest_post_section, .popular_post_section {
+padding: 40px 12.5%;
+padding: 2.500rem 12.5%; /* 40px / 320px */
+}
+.title {
+margin-bottom: 30px;
+margin-bottom: 1.875rem;
+font-size: 1.188em;
+font-size: 1.188rem;
+text-align: center;
+text-transform: uppercase;
+color: #fff;
+}
+.latest_post_list li, .popular_post_list li {
+margin-top: 15px;
+margin-top: 0.938rem;
+padding-left: 14px;
+padding-left: 0.875rem;
+font-weight: bold;
+text-transform: uppercase;
+background: url(./images/s_images/post_circle_icon.png) left center no-repeat;
+}
+/* 첫번째 글은 위쪽 마진이 필요 없으므로 0으로 설정 */
+.latest_post_list li:first-child, .popular_post_list li:first-child { 
+margin-top: 0;
+}
+/* 소개 영역 css */
+.portfolio_section {
+order: 6;
+padding: 50px 12.5%;
+padding: 3.125rem 12.5%; /* 40px / 320px */
+text-align: center;
+background: #e65d5d;
+text-shadow: 0px 1px 1px #c43434;
+}
+.portfolio_section img{
+width: 100%;
+max-width: 100%;
+border-radius: 3px; /* 둥근 모서리 */
+box-shadow: 0px 1px 1px #c43434;
+}
+/* 이미지 목록 사이 간격을 위해서 */
+.portfolio_list li:nth-child(2) {
+margin-top: 30px;
+margin-top: 1.875rem; 
+}
+.portfolio_list li figcaption {
+margin-top: 20px;
+margin-top: 1.250rem;
+font-size: 1.188em;
+font-size: 1.188rem;
+text-transform: uppercase;
+font-weight: bold;
+}
+.rankup_section {
+order: 7;
+padding: 40px 12.5%;
+padding: 2.500rem 12.5%; /* 40px / 320px */
+background: #219af7;
+text-shadow: 0px 1px 1px #1974ba;
+}
+/* 총 240에서 li의 넓이를 2등분, wrap 으로 설정하여 2개씩 여러줄로 배치 */
+.rankup_list {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between
+}
+.rankup_list li {
+width: 47.91666%; /* 115px / 240px */
+margin-top: 15px;
+margin-top: 0.938rem;
+text-align: center;
+text-transform: uppercase;
+font-weight: bold;
+}
+.rankup_list li:first-child, .rankup_list li:nth-child(2) {
+margin-top: 0;
+}
+/* 흰색 둥근 테두리선 적용 */
+.rankup_list li a {
+display: block; /* 하지 않으면 글자 크기에 맞춰서 테두리가 생깁니다. */
+padding: 10px 0;
+padding: 0.625rem 0;
+border: 1px solid #fff;
+border-radius: 5px;
+}
+/* 배너 영역 css */
+.banner_section {
+order: 8;
+}
+.banner_box_01 {
+background: #e6567a;
+}
+.banner_box_01 a {
+display: block;
+padding: 30px 0;
+padding: 1.875rem 0;
+text-align: center;
+}
+.banner_box_02 {
+background: #c44968;
+}
+.banner_list {
+display: flex;
+justify-content: space-between;
+padding: 30px 12.5%;
+padding: 1.875rem 12.5%; /* 40px / 320px */
+}
+/* 소셜 네트워크 영역 css */
+.social_section {
+order: 9;
+padding: 24px 12.5%;
+padding: 1.500rem 12.5%; /* 40px / 320px */
+background: #fff;
+}
+.social_list {
+display: flex;
+justify-content: space-between;
+}
+/* 푸터 css */
+.footer {
+order: 10;
+width: 100%;
+background: #474747;
+}
+.footer p {
+padding: 20px;
+padding: 1.250rem;
+font-size: 0.813em;
+font-size: 0.813rem;
+text-align: center;
+text-transform: uppercase;
+font-weight: bold;
+color: #fff;
+text-shadow: 0px 1px 1px #191919;
+}
+
+/* 태블릿용 css */
+@media all and (min-width: 768px) {
+#wrap {
+flex-flow: row wrap;
+}
+/* 헤더 영역 css */
+.header {
+flex-direction: row;
+}
+.logo {
+position: absolute;
+top: 0;
+left: 0;
+z-index: 10;
+width: 15.625%; /* 로고 너빗갓 : 120px / 768px */
+padding: 0;
+}
+.logo a {
+display: block;
+padding: 50px 0;
+padding: 3.125rem 0;
+}
+.nav {
+position: relative;
+min-height: 80px;
+min-height: 5.000rem;
+background: #2ecc71;
+}
+.gnb {
+position: absolute;
+top: 100%;
+right: 0;
+z-index: 20;
+width: 40.10416667%; /* 308px / 768px */
+}
+.menu_toggle_btn {
+top: 50%;
+right: 30px;
+right: 1.875rem;
+z-index: 20;
+margin-top: -15px; /* 위쪽으로 50% 이기 때문에 정확히 중앙으로 맞추기 위해서 */
+margin-top: -0.938rem;
+}
+/* 슬라이더 영역 css */
+.slider_section {
+width: 59.8958333%; /* 460px / 768px */
+height: auto; /* 높이값은 더이상 필요 없음. */
+}
+.slider_section span {
+position: relative;
+z-index: 10;
+}
+/* 최근 글 영역, 인기 글 영역 css */
+.latest_post_section {
+order: 5;
+}
+.popular_post_section {
+order: 6;
+}
+.latest_post_section, .popular_post_section {
+width: 41.666%; /* 320px / 768px */
+padding-left: 5.208333%; /* 320px 안의 패딩!!!! :  40px / 768px */ 
+padding-right: 5.208333%;
+}
+.portfolio_section {
+order: 8;
+width: 71.3541666%; /* 548px / 768px */
+padding-left: 5.208333%;
+padding-right: 5.208333%; /* 40px / 768px */
+}
+.portfolio_list {
+display: flex;
+}
+.portfolio_list li {
+width: 47.008547%; /* 220px / 468px */
+}
+.portfolio_list li:nth-child(2) {
+margin-left: 5.98290%; /* 28px / 468px */
+margin-top: 0;
+}
+/* 인기 검색어 영역 css */
+.rankup_section {
+order: 4;
+width: 40.1041667%; /* 308px / 768px */
+padding-left: 5.208333%;
+padding-right: 5.208333%; /* 40px / 768px */
+}
+/* 배너 영역 css */
+.banner_section {
+display: flex;
+order: 9;
+flex-direction: column;
+width: 28.6458333%; /* 220px / 768px */
+}
+.banner_section div {
+flex: 1 1 0
+}
+.banner_box_01 {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.banner_box_01 a {
+display: inline;
+padding: 0;
+}
+.banner_box_02 {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.banner_list {
+padding: 0;
+justify-content: flex-start;
+}
+.banner_list li:nth-child(2){
+margin: 0 14px;
+margin: 0 0.875rem;
+}
+/* 소셜 네트워크 영역 css */
+.social_section {
+display: flex;
+order: 7;
+justify-content: center;
+align-items: center;
+width: 16.667%; /* 128px / 768px */
+padding: 0;
+}
+.social_list {
+flex-direction: column;
+justify-content: flex-start;
+}
+.social_list li:nth-child(2) {
+margin: 24px 0;
+margin: 1.500rem 0;
+}
+/* 푸터 css */
+.footer {
+padding: 40px 0;
+padding: 2.500rem 0;
+}
+}
+
+/* PC 용 css */
+@media all and (min-width: 960px) {
+#wrap {
+position: relative;
+width: 90%;
+}
+/* 인포메이션 영역 css */
+.info_section {
+order: 0; /* order 값을 초기화. 기존값 : 1 */
+position: absolute; /* 상단 오른쪽으로 배치하기 위해서 */
+top: 30px;
+top: 1.875rem;
+right: 30px;
+right: 1.875rem;
+z-index: 30;
+width: auto;
+border-bottom: 0;
+}
+.info_list li {
+width: auto;
+margin-left: 15px;
+margin-left: 0.625rem;
+}
+.info_list li a {
+padding: 0;
+}
+.header {
+order: 1;
+justify-content:flex-end; /* 로고와 네비가 겹치는 걸 대비해 주축의 끝을 기준으로 배치 */
+position: static; /* 위치를 상대적으로 할 필요가 없기 때문에 고정 */
+}
+.logo {
+width: 12.5%; /* 120px / 960px */
+}
+.nav {
+display: flex;
+align-items: center; /* 교차축의 세로 중앙으로 세우기 위해 */
+position: static; 
+width: 87.5%; /* 840px / 960px */
+}
+.gnb {
+display: flex !important; /* !important : 다른것보다 최우선으로 적용 */
+flex-direction: row;
+position: static;
+width: 100%;
+text-shadow: 0px 1px 1px #25ab5e;
+}
+.gnb li {
+display: block;
+margin-left: 5.208333%; /* 50px / 840px */
+background:none;
+}
+.gnb li a {
+width: auto;
+padding: 0;
+text-indent: 0;
+}
+.gnb li span {
+display: none;
+}
+.menu_toggle_btn {
+display: none;
+}
+/* 슬라이더 영역 css */
+.slider_section {
+order: 2;
+width: 50%; /* 480px / 960px */
+}
+/* 최근 글 영역, 인기 글 영역 css */
+.latest_post_section, .popular_post_section {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 30%; /* 288px / 960px */
+padding-left: 0;
+padding-right: 0; /* 패딩값 초기화!!! */
+}
+/* 소개 영역 css */
+.portfolio_section {
+order: 3;
+width: 27.08333%; /* 260px / 960px */
+}
+.portfolio_list {
+display: block;
+}
+.portfolio_list li {
+width: auto; /* li 태그에는 너빗값이 필요 없음 */
+}
+.portfolio_list li:nth-child(2) {
+margin-top: 30px;
+margin-top: 1.875rem;
+margin-left: 0;
+}
+/* 인기 검색어 영역 css */
+.rankup_section {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 22.91667%; /* 220px / 960px */
+padding: 0;
+}
+.rankup_list {
+display: block;
+}
+.rankup_list li {
+width: auto;
+text-align: left;
+counter-increment: rankup-counter; /* 카운터 증가 속성, 카운터명 : rankup-counter */
+}
+.rankup_list li:nth-child(2) {
+margin-top: 15px;
+margin-top: 0.938rem;
+}
+.rankup_list li:before {
+padding-right: 6px;
+padding-right: 0.375rem;
+text-transform: uppercase;
+font-weight: bold;
+color: #fff;
+text-shadow: 0px 1px 1px #428e9e;
+content: counter(rankup-counter) '.'; /* 앞에 번호를 붙임  */
+}
+/* 패딩과 선값이 필요 없으므로 초기화 */
+.rankup_list li a {
+display: inline;
+padding: 0;
+border: 0;
+}
+/* 배너 영역 css */
+.banner_section {
+order: 7;
+width: 22.91667%; /* 220px / 960px */
+}
+/* 소셜 네트워크 영역 css */
+.social_section {
+order: 8;
+width: 17.08333%; /* 164px / 960px */
+}
+.footer {
+order: 9;
+}
+.footer p {
+padding-left: 3.125%; /* 30px / 960px */
+text-align: left;
+}
+}
+</style>
+<script>
+    $(function(){
+        $(".menu_toggle_btn").click(function(){
+            $(".gnb").stop().slideToggle("fast");
+            // stop() : 현재 실행중인 효과를 모두 중지, slideToggle : 숨겨진 요소를 펴고 접는 기능
+        });
+    });
+</script>
+</head>
+<body>
+    <div id="wrap">
+        <section class="info_section">
+            <ul class="info_list">
+                <li><a href="index.html"><img src="./images/s_images/info_icon_01.png" alt=""></a></li>
+                <li><a href="#"><img src="./images/s_images/info_icon_02.png" alt=""></a></li>
+                <li><a href="#"><img src="./images/s_images/info_icon_03.png" alt=""></a></li>
+                <li><a href="#"><img src="./images/s_images/info_icon_04.png" alt=""></a></li>
+            </ul>
+        </section>
+        <header class="header">
+            <h1 class="logo">
+                <a href="index.html">Data<br>World</a>
+            </h1>
+            <nav class="nav">
+                <ul class="gnb">
+                    <li><a href="index.html">홈</a><span class="sub_menu_toggle_btn">하위 메뉴 토글 버튼</span></li>
+                    <li><a href="#">소개</a><span class="sub_menu_toggle_btn">하위 메뉴 토글 버튼</span></li>
+                    <li><a href="bbs.html">게시판</a><span class="sub_menu_toggle_btn">하위 메뉴 토글 버튼</span></li>
+                    <li><a href="#">문의사항</a><span class="sub_menu_toggle_btn">하위 메뉴 토글 버튼</span></li>
+                </ul>
+            </nav>
+            <span class="menu_toggle_btn">전체 메뉴 토글 버튼</span>
+        </header>
+        <section class="slider_section">
+            <span class="prev_btn">이전 버튼</span><span class="next_btn">다음 버튼</span>
+        </section>
+        <section class="latest_post_section">
+            <h2 class="title">최근 글</h2>
+            <ul class="latest_post_list">
+                <li><a href="#">안녕하슈, 반갑수다</a></li>
+                <li><a href="#">홈페이지 잘만들었네</a></li>
+                <li><a href="#">호잇</a></li>
+                <li><a href="#">안녕하세요. 김미영 팀장입니다.</a></li>
+                <li><a href="#">내가 누군지 아니?</a></li>
+            </ul>
+        </section>
+        <section class="popular_post_section">
+            <h2 class="title">인기 글</h2>
+            <ul class="latest_post_list">
+                <li><a href="#">안녕하슈, 반갑수다</a></li>
+                <li><a href="#">홈페이지 잘만들었네</a></li>
+                <li><a href="#">호잇</a></li>
+                <li><a href="#">안녕하세요. 김미영 팀장입니다.</a></li>
+                <li><a href="#">내가 누군지 아니?</a></li>
+            </ul>
+        </section>
+        <section class="portfolio_section">
+            <ul class="portfolio_list">
+                <li>
+                    <a href="#">
+                        <figure>
+                            <img src="./images/p_images/gallery_01.jpg" alt="">
+                            <figcaption>무비 카페</figcaption>
+                        </figure>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <figure>
+                            <img src="./images/p_images/gallery_02.jpg" alt="">
+                            <figcaption>Data Blog</figcaption>
+                        </figure>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <section class="rankup_section">
+            <h2 class="title">인기 검색어</h2>
+            <ul class="rankup_list">
+                <li><a href="#">반응형 웹</a></li>
+                <li><a href="#">미디어 쿼리</a></li>
+                <li><a href="#">뷰포트</a></li>
+                <li><a href="#">CSS 트릭스</a></li>
+                <li><a href="#">W3C</a></li>
+                <li><a href="#">루크 W</a></li>
+                <li><a href="#">CSS 젠 가든</a></li>
+                <li><a href="#">클리어 보스</a></li>
+                <li><a href="#">XE</a></li>
+                <li><a href="#">워드프레스</a></li>
+            </ul>
+        </section>
+        <section class="banner_section">
+            <div class="banner_box_01">
+                <a href=""><img src="images/s_images/w3c_logo.png" alt=""></a>
+            </div>
+            <div class="banner_box_02">
+                <ul class="banner_list">
+                    <li><a href="#"><img src="images/s_images/js_logo.png" alt=""></a></li>
+                    <li><a href="#"><img src="images/s_images/html_logo.png" alt=""></a></li>
+                    <li><a href="#"><img src="images/s_images/css_logo.png" alt=""></a></li>
+                </ul>
+            </div>
+        </section>
+        <section class="social_section">
+            <ul class="social_list">
+                <li><a href="#"><img src="images/s_images/social_icon_01.png" alt=""></a></li>
+                <li><a href="#"><img src="images/s_images/social_icon_02.png" alt=""></a></li>
+                <li><a href="#"><img src="images/s_images/social_icon_03.png" alt=""></a></li>
+            </ul>
+        </section>
+        <footer class="footer">
+            <p>copyright&copy;2014.data world blog all right reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

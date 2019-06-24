@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+a {
+text-decoration: none;
+color: white;
+}
+ul {
+list-style: none;
+}
+#wrap {
+display: flex;
+flex-flow: column nowrap;
+width: 80%;
+margin: 0 auto;
+max-width: 1200px;
+}
+.header {
+display: flex;
+order: 2;
+flex-direction: column;
+position: relative;
+width: 100%;
+margin: 0 auto;
+}
+.logo {
+width: 100%;
+padding: 30px 0;
+font-size: 1.188em;
+line-height: 21px;
+text-align: center;
+text-transform: uppercase;
+background: skyblue;
+text-shadow: 0px 1px 1px black;
+margin: 0 auto;
+}
+.nav {
+order: 2;
+width: 100%;
+}
+.gnb li {
+display: flex;
+background: #2c3e50;
+}
+.gnb li a {
+width: 100%;
+padding: 20px 0;
+padding: 1.250rem 0;
+font-size: 0.938em;
+font-size: 0.938rem;
+text-indent: 20px;
+text-indent: 1.250rem;
+font-weight: bold;
+text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <h1 class="logo">
+                <a href="ss_index.jsp">Logo <br> World</a>
+            </h1>
+            <nav class="nav">
+                <ul class="gnb">
+                    <li><a href="ss_index.jsp">홈</a></li>
+                    <li><a href="ss_login.jsp">로그인</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div>
+            <h3> 빌어먹을 JSP 에 오신것을 환영합니다.</h3>
+            <hr>
+            <p> 마음껏 이용해 주세요. 할것도 없지만요. </p>
+        </div>
+    </div>
+</body>
+</html>
