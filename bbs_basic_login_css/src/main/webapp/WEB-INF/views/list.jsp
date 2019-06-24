@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maxmun-scale=1, minimun-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="http://localhost:8282/bbs/resources/css/reset.css?ver=1.0">
+<link rel="stylesheet" type="text/css" href="http://localhost:8383/bbs/resources/css/reset.css?ver=1.0">
 <link rel="stylesheet" href="#">
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
@@ -90,7 +90,7 @@ text-transform: uppercase;
 .gnb li span {
 width: 20%;
 text-indent: -9999px;
-background: url(http://localhost:8282/bbs/resources/images/s_images/sub_menu_toggle_btn.png) center center no-repeat;
+background: url(http://localhost:8383/bbs/resources/images/s_images/sub_menu_toggle_btn.png) center center no-repeat;
 cursor: pointer; /* 마우스 모양 손모양으로 변경 */
 }
 .menu_toggle_btn {
@@ -105,7 +105,7 @@ top: 0.625rem;
 right: 10px;
 right: 0.625rem;
 text-indent: -9999px;
-background: url(http://localhost:8282/bbs/resources/images/s_images/menu_toggle_btn.png) no-repeat;
+background: url(http://localhost:8383/bbs/resources/images/s_images/menu_toggle_btn.png) no-repeat;
 cursor: pointer;
 }
 /* 서브 헤더 영역 css */
@@ -237,12 +237,12 @@ text-indent: -9999px;
 .content_row_3 span.list_prev_btn {
 margin-right: 10px;
 margin-right: 0.625rem;
-background: #2ecc71 url(http://localhost:8282/bbs/resources/images/s_images/list_prev_btn.png) center center no-repeat;
+background: #2ecc71 url(http://localhost:8383/bbs/resources/images/s_images/list_prev_btn.png) center center no-repeat;
 }
 .content_row_3 span.list_next_btn {
 margin-left: 10px;
 margin-left: 0.625rem;
-background: #2ecc71 url(http://localhost:8282/bbs/resources/images/s_images/list_next_btn.png) center center no-repeat;
+background: #2ecc71 url(http://localhost:8383/bbs/resources/images/s_images/list_next_btn.png) center center no-repeat;
 }
 .content_row_3 a {
 width: 26px;
@@ -486,10 +486,10 @@ $(function(){
     <div id="wrap">
         <section class="info_section">
             <ul class="info_list">
-                <li><a href="index.html"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_01.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_02.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_03.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_04.png" alt=""></a></li>
+                <li><a href="index.html"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_01.png" alt=""></a></li>
+                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_02.png" alt=""></a></li>
+                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_03.png" alt=""></a></li>
+                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_04.png" alt=""></a></li>
             </ul>
         </section>
         <header class="header">

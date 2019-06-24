@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maxmun-scale=1, minimun-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Do it!!!!</title>
-    <link rel="stylesheet" type="text/css" href="http://localhost:8282/bbs/resources/css/reset.css?ver=1.0">
+    <link rel="stylesheet" type="text/css" href="http://localhost:8383/bbs/resources/css/reset.css?ver=1.0">
     <link rel="stylesheet" href="#">
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
@@ -161,7 +161,7 @@ background: #f6f6f6;
 height: 50px;
 font-size: 0.813em;
 font-size: 0.813rem;
-text-indent: 2px;
+text-indent: 0px;
 border: 0;
 }
 .bbs_content {
@@ -375,10 +375,10 @@ text-align: left;
 	<div id="wrap">
         <section class="info_section">
             <ul class="info_list">
-                <li><a href="index"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_01.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_02.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_03.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_04.png" alt=""></a></li>
+                <li><a href="index"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_01.png" alt=""></a></li>
+                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_02.png" alt=""></a></li>
+                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_03.png" alt=""></a></li>
+                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_04.png" alt=""></a></li>
             </ul>
         </section>
         <header class="header">

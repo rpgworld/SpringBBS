@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maxmun-scale=1, minimun-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Do it!!!!</title>
-    <link rel="stylesheet" type="text/css" href="http://localhost:8282/bbs/resources/css/reset.css?ver=1.0">
+    <link rel="stylesheet" type="text/css" href="http://localhost:8383/bbs/resources/css/reset.css?ver=1.0">
     <link rel="stylesheet" href="#">
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
@@ -205,7 +205,7 @@ color:#fff;
 .read_btn .right_btn a{
 display: block;
 }
-.read_btn .right_btn input, .read_btn .right_btn a:nth-child(2) {
+.delete_btn, .delete_btn + a{
 margin-top: 10px;
 margin-top: 0.625rem;
 }
@@ -287,6 +287,10 @@ display: inline;
 }
 .read_btn .right_btn a:nth-child(2), .read_btn .right_btn a:nth-child(3) {
 margin-top: 0;
+}
+.delete_btn, .delete_btn + a{
+margin-top: 0px;
+margin-top: 0rem;
 }
 /* 푸터 css */
 .footer {
@@ -391,10 +395,10 @@ text-align: left;
 	<div id="wrap">
         <section class="info_section">
             <ul class="info_list">
-                <li><a href="index"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_01.png" alt=""></a></li>
-                <li><a href=""><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_02.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_03.png" alt=""></a></li>
-                <li><a href="#"><img src="http://localhost:8282/bbs/resources/images/s_images/info_icon_04.png" alt=""></a></li>
+                <li><a href="index"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_01.png" alt=""></a></li>
+                <li><a href=""><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_02.png" alt=""></a></li>
+                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_03.png" alt=""></a></li>
+                <li><a href="#"><img src="http://localhost:8383/bbs/resources/images/s_images/info_icon_04.png" alt=""></a></li>
             </ul>
         </section>
         <header class="header">
@@ -462,7 +466,7 @@ text-align: left;
                 <a href="list"><input type="button" value="목록으로"></a>
                 <div class="right_btn">
                     <a href="updateForm?num=${dto.num }&name=${dto.name}"><input type="button" value="수정하기"></a>
-                    <input type="submit" value="삭제하기">
+                    <input type="submit" class="delete_btn" value="삭제하기">
                     <a href="replyForm?num=${dto.num }"><input type="button" value="답글"></a>
                 </div>
             </div>
