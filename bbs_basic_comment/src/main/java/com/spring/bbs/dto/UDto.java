@@ -47,3 +47,20 @@ public class UDto {
 	
 	
 }
+
+/*
+
+create table spring_user (
+pid number(10) primary key,
+id varchar2(20) not null,
+pw varchar2(20) not null,
+name varchar2(20) not null,
+age number(4) not null,
+email varchar2(50)
+);
+
+create SEQUENCE spring_user_seq;
+
+insert into spring_user values (spring_user_seq.nextval, 'aaa', '1111', 'aaa', 10, 'aaa@naver.com');
+
+*/

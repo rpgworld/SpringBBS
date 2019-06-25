@@ -32,17 +32,28 @@ public class BController {
 		BDao dao= sqlSession.getMapper(BDao.class);
 		
 		int curPage = 1;
-		if (request.getParameter("curPage") != null) {
+		if (request.getParameter("curPage") != null && curPage > 0) {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}
+		int startPage = 0;
+		if(curPage >= 10 && curPage % 10 == 0) {
+			startPage = curPage - 9;
+		} else {
+			startPage = (curPage / 10) * 10 + 1;
+		}
+		int endPage = startPage + 9;
 		
 		int start = WRITING_PER_PAGE * (curPage - 1) + 1;
 		int end = WRITING_PER_PAGE * curPage;
 		model.addAttribute("list", dao.list(start, end));
 		
-		
 		int pageCnt = (dao.pageCnt() - 1) / WRITING_PER_PAGE + 1;
-		model.addAttribute("pageCnt", pageCnt);
+		if(endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("curPage", curPage);
 		
 		return "list";
 	}

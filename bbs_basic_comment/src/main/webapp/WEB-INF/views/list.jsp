@@ -48,7 +48,7 @@ $('document').ready(function(){
 		<c:otherwise>
 			<c:out value="${id }님 환영합니다."/> <br>
 			<a href="logout">로그아웃</a>
-			<a href="adminForm">관리자 페이지</a>
+			<a href="userList">관리자 페이지</a>
 		</c:otherwise>
 	</c:choose>
 	 
@@ -82,7 +82,10 @@ $('document').ready(function(){
 </table>
 <p><a href="writeForm">글작성</a></p>
 
-<c:forEach var="i" begin="1" end="${pageCnt }">
+
+<a href="list?curPage=${curPage - 1 }">이전</a>
+
+<c:forEach var="i" begin="${startPage }" end="${endPage }">
 	<a href="list?curPage=${i }">${i }</a>
 </c:forEach>
 
