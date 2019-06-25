@@ -283,10 +283,6 @@ right: 0;
 z-index: 20;
 width: 40.10416667%; /* 308px / 768px */
 }
-.info_list li:nth-child(3) img {
-padding: 0;
-padding: 0;
-}
 .user_list {
 margin-top: 4px;
 }
@@ -397,6 +393,9 @@ display: none;
 .menu_toggle_btn {
 display: none;
 }
+.info_list li:nth-child(3) img {
+padding: 0;
+}
 /* 서브 헤더 영역 css */
 .sub_header_section {
 order: 2;
@@ -503,8 +502,8 @@ $('document').ready(function(){
         	<table class="login_table">
         		<thead>
         			<tr>
-                        <th>로그인</th>
-                    </tr>
+                  <th>로그인</th>
+              </tr>
         		</thead>
         		<tbody>
 	        		<tr>
@@ -515,7 +514,7 @@ $('document').ready(function(){
 	        		</tr>
 	        		<tr>
 	        			<td class="login_btns">
-	        				<input class="login_btn" type="submit" value="로그인">
+	        				<input class="login_btn" type="submit" value="로그인하기">
 	        				<br> <a href="joinForm">회원가입하러 가기</a>
 	        			</td>
 	        		</tr>

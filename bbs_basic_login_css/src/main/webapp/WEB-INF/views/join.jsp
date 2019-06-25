@@ -296,10 +296,6 @@ right: 0;
 z-index: 20;
 width: 40.10416667%; /* 308px / 768px */
 }
-.info_list li:nth-child(3) img {
-padding: 0;
-padding: 0;
-}
 .user_list {
 margin-top: 4px;
 }
@@ -414,6 +410,9 @@ display: none;
 .menu_toggle_btn {
 display: none;
 }
+.info_list li:nth-child(3) img {
+padding: 0;
+}
 /* 서브 헤더 영역 css */
 .sub_header_section {
 order: 2;
@@ -440,11 +439,18 @@ text-align: left;
 }
 </style>
 <script>
-$(function(){
-    $(".menu_toggle_btn").click(function(){
-        $(".gnb").stop().slideToggle("fast");
-        // stop() : 현재 실행중인 효과를 모두 중지, slideToggle : 숨겨진 요소를 펴고 접는 기능
-    });
+$('document').ready(function(){
+	/* 회원 관리 버튼 이벤트 */
+	$('.user').click(function(){
+		$('.user_list').stop().slideToggle('fast');
+	});
+	
+	/* 전체 메뉴 토글 버튼 이벤트 */
+	$(".menu_toggle_btn").click(function(){
+    $(".gnb").stop().slideToggle("fast");
+    // stop() : 현재 실행중인 효과를 모두 중지, slideToggle : 숨겨진 요소를 펴고 접는 기능
+  });
+	
 });
 function pw_check() {
     var pw1 = $('.pw1').val();

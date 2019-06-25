@@ -287,10 +287,6 @@ right: 0;
 z-index: 20;
 width: 40.10416667%; /* 308px / 768px */
 }
-.info_list li:nth-child(3) img {
-padding: 0;
-padding: 0;
-}
 .user_list {
 margin-top: 4px;
 }
@@ -400,6 +396,9 @@ display: none;
 /* 서브 헤더 영역 css */
 .sub_header_section {
 order: 2;
+}
+.info_list li:nth-child(3) img {
+padding: 0;
 }
 /* 컨텐츠 영역 css */
 .content_section {
