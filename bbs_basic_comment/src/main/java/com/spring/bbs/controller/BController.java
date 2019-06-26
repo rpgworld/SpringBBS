@@ -1,5 +1,8 @@
 package com.spring.bbs.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -203,8 +206,12 @@ public class BController {
 		logger.info("search()");
 		
 		String searchOption = "title";
-		String searchWord = request.getParameter("searchWord");
-		
+		String searchWord = null;
+		try {
+		searchWord = URLDecoder.decode(request.getParameter("searchWord"), "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		BDao dao= sqlSession.getMapper(BDao.class);
 		
 		int curPage = 1;

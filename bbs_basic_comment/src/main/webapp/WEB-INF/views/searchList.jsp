@@ -32,7 +32,7 @@ $('document').ready(function(){
 });
 
 function list(curPage, searchWord) {
-	var searchWordEncoding = encodeURI(encodeURIComponent(searchWord), 'EUC-KR');
+	var searchWordEncoding = encodeURI(encodeURIComponent(searchWord), 'UTF-8');
 	location.href='search?curPage=' + curPage + '&searchOption=${searchOption}&searchWord=' + searchWordEncoding;
 }
 
@@ -86,10 +86,9 @@ function list(curPage, searchWord) {
 	</c:forEach>
 </table>
 <p><a href="writeForm">글작성</a></p>
-${searchWord}
 
 <c:forEach var="i" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-	<a href="search?curPage=${curPage }&searchOption=${searchOption}&searchWord=${searchWord}">${i }</a>
+	<a href="javascript:list('${i }', '${searchWord }')">${i }</a>
 </c:forEach>
 []
 <form action="search" method="get">
