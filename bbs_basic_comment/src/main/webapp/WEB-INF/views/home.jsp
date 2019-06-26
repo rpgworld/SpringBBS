@@ -10,5 +10,11 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+
+<p>
+${bbsCnt } <br>
+${pageMaker.startIndex } <br>
+${pageMaker.endIndex } <br>
+</p>
 </body>
 </html>

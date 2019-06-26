@@ -12,7 +12,7 @@
 	</select>
 	
 	<!-- 페이징처리 -->
-	<select id="pageCnt" resultType="int">
+	<select id="bbsCnt" resultType="int">
 		SELECT COUNT(*) AS num FROM spring_bbs
 	</select>
 	
@@ -54,29 +54,36 @@
 		UPDATE spring_bbs SET title = #{title}, content = #{content} WHERE num = #{num}
 	</delete> 
 	
+	<!-- 검색한 게시글 개수 -->
+	<select id="searchCnt" resultType="int" parameterType="map">
+		SELECT COUNT(*) as num FROM spring_bbs WHERE 
+		<include refid="search"></include>
+	</select>	
 	<!-- 검색 -->
 	<select id="search" resultType="com.spring.bbs.dto.BDto" parameterType="map">
 		SELECT * FROM (SELECT ROWNUM rnum, num, name, title, content, write_date, to_char(write_date, 'hh24:mi:ss') as write_time, hit, ref, step, lev, reply_cnt 
-		FROM ( SELECT * FROM spring_bbs ORDER BY ref desc, step asc ) spring_bbs) 
-		WHERE rnum &gt;= #{start} and rnum &lt;= #{end}
+		FROM ( SELECT * FROM spring_bbs WHERE 
 		<include refid="search"></include>
+		ORDER BY ref desc, step asc ) spring_bbs) 
+		WHERE rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
 	<sql id="search">
 		<choose>
 			<when test="searchOption == 'title'">
-				and title LIKE '%'||#{searchWord}||'%'
+				title LIKE '%'||#{searchWord}||'%'
 			</when>
 			<when test="searchOption == 'content'">
-				and content LIKE '%'||#{searchWord}||'%'
+				content LIKE '%'||#{searchWord}||'%'
 			</when>
 			<when test="searchOption == 'both'">
-				and (title LIKE '%'||#{searchWord}||'%' OR content LIKE '%'||#{searchWord}||'%')
+				(title LIKE '%'||#{searchWord}||'%' OR content LIKE '%'||#{searchWord}||'%')
 			</when>
 			<otherwise>
-				and name LIKE '%'||#{searchWord}||'%'
+				name LIKE '%'||#{searchWord}||'%'
 			</otherwise>
 		</choose>
 	</sql>
+	
 	<!-- 답글이 위치할 곳에 글이 존재하는지 여부 확인 -->
 	<select id="replySearchStep" resultType="int" parameterType="map">
 		SELECT NVL(MIN(step), 0) AS reply_step FROM spring_bbs WHERE ref = #{ref} AND step &gt; #{step} AND lev &lt;= #{lev}

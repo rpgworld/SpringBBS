@@ -31,6 +31,11 @@ $('document').ready(function(){
 	}
 });
 
+function list(curPage, searchWord) {
+	var searchWordEncoding = encodeURI(encodeURIComponent(searchWord), 'EUC-KR');
+	location.href='search?curPage=' + curPage + '&searchOption=${searchOption}&searchWord=' + searchWordEncoding;
+}
+
 </script>
 </head>
 <body>
@@ -81,17 +86,12 @@ $('document').ready(function(){
 	</c:forEach>
 </table>
 <p><a href="writeForm">글작성</a></p>
+${searchWord}
 
-<c:if test="${pageMaker.prev }">
-	<a href="list?curPage=${curPage - 1 }">이전</a>
-</c:if>
 <c:forEach var="i" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-	<a href="list?curPage=${i }">${i }</a>
+	<a href="search?curPage=${curPage }&searchOption=${searchOption}&searchWord=${searchWord}">${i }</a>
 </c:forEach>
-<c:if test="${pageMaker.next }">
-	<a href="list?curPage=${curPage + 1 }">다음</a>
-</c:if>
-
+[]
 <form action="search" method="get">
 	<select name="searchOption">
 		<option value="title">제목</option>

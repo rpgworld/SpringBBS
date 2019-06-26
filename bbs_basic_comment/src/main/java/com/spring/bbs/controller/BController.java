@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.spring.bbs.PageMaker;
 import com.spring.bbs.dao.BDao;
 
 @Controller
@@ -32,10 +33,10 @@ public class BController {
 		BDao dao= sqlSession.getMapper(BDao.class);
 		
 		int curPage = 1;
-		if (request.getParameter("curPage") != null && curPage > 0) {
+		if (request.getParameter("curPage") != null) {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}
-		int startPage = 0;
+		/*int startPage = 0;
 		if(curPage >= 10 && curPage % 10 == 0) {
 			startPage = curPage - 9;
 		} else {
@@ -47,12 +48,17 @@ public class BController {
 		int end = WRITING_PER_PAGE * curPage;
 		model.addAttribute("list", dao.list(start, end));
 		
-		int pageCnt = (dao.pageCnt() - 1) / WRITING_PER_PAGE + 1;
+		int pageCnt = (dao.bbsCnt() - 1) / WRITING_PER_PAGE + 1;
 		if(endPage > pageCnt) {
 			endPage = pageCnt;
 		}
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("curPage", curPage);*/
+		
+		PageMaker pageMaker = new PageMaker(curPage, dao.bbsCnt());
+		model.addAttribute("list", dao.list(pageMaker.getStartIndex(), pageMaker.getEndIndex()));
+		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("curPage", curPage);
 		
 		return "list";
@@ -196,7 +202,7 @@ public class BController {
 	public String search(HttpServletRequest request, Model model) {
 		logger.info("search()");
 		
-		String searchOption = request.getParameter("searchOption");
+		String searchOption = "title";
 		String searchWord = request.getParameter("searchWord");
 		
 		BDao dao= sqlSession.getMapper(BDao.class);
@@ -206,15 +212,24 @@ public class BController {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}
 		
-		int start = WRITING_PER_PAGE * (curPage - 1) + 1;
+		/*int start = WRITING_PER_PAGE * (curPage - 1) + 1;
 		int end = WRITING_PER_PAGE * curPage;
 		model.addAttribute("list", dao.search(searchOption, searchWord, start, end));
 		
 		
-		int pageCnt = (dao.pageCnt() - 1) / WRITING_PER_PAGE + 1;
-		model.addAttribute("pageCnt", pageCnt);
+		int pageCnt = (dao.bbsCnt() - 1) / WRITING_PER_PAGE + 1;
+		model.addAttribute("pageCnt", pageCnt);*/
 		
-		return "list";
+		PageMaker pageMaker = new PageMaker(curPage, dao.searchCnt(searchOption, searchWord));
+		model.addAttribute("list", dao.search(searchOption, searchWord, pageMaker.getStartIndex(), pageMaker.getEndIndex()));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("searchWord", searchWord);
+		
+		System.out.println("±úÁö´Â°Å:" + searchWord);
+		
+		return "searchList";
 	}
 	
 	// ´ä±Û Æû
