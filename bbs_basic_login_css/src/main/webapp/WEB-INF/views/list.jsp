@@ -255,19 +255,20 @@ justify-content: center;
 margin-top: 20px;
 margin-top: 1.250rem;
 }
-.content_row_3 span {
+.content_row_3 a.btn {
 width: 28px;
 width: 1.750rem;
 height: 28px;
 height: 1.750rem;
 text-indent: -9999px;
+border: 0;
 }
-.content_row_3 span.list_prev_btn {
+.content_row_3 a.list_prev_btn {
 margin-right: 10px;
 margin-right: 0.625rem;
 background: #2ecc71 url(resources/images/s_images/list_prev_btn.png) center center no-repeat;
 }
-.content_row_3 span.list_next_btn {
+.content_row_3 a.list_next_btn {
 margin-left: 10px;
 margin-left: 0.625rem;
 background: #2ecc71 url(resources/images/s_images/list_next_btn.png) center center no-repeat;
@@ -288,7 +289,7 @@ transition: all 0.2s;
 margin: 0 3px;
 margin: 0 0.1875rem;
 }
-.content_row_3 a:hover {
+.content_row_3 a:not(.btn):hover {
 color: #fff;
 background: #219af7;
 }
@@ -536,6 +537,11 @@ $('document').ready(function(){
         $(".gnb").stop().slideToggle("fast");
         // stop() : 현재 실행중인 효과를 모두 중지, slideToggle : 숨겨진 요소를 펴고 접는 기능
     });
+	
+	/* 해당 페이지 번호 활성화 */
+	curPage = '${pageMaker.curPage}';
+	$('.pageNum'+ curPage).css('background','#2E9AFE');
+	$('.pageNum'+ curPage).css('color','white');
 });
 
 
@@ -635,11 +641,15 @@ $('document').ready(function(){
                 </div>
             </div>
             <div class="content_row_3">
-                <span class="list_prev_btn">이전 버튼</span>
-                <c:forEach var="i" begin="1" end="${pageCnt }">
-                    <a href="list?curPage=${i }">${i }</a>
-                </c:forEach>
-                <span class="list_next_btn">다음 버튼</span>
+            	<c:if test="${pageMaker.prev }">
+                <a class="list_prev_btn btn" href="list?curPage=${pageMaker.curPage - 1 }">이전 버튼</a>
+                </c:if>
+                <c:forEach var="i" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+					<a class="pageNum${i }" href="list?curPage=${i }">${i }</a>
+				</c:forEach>
+				<c:if test="${pageMaker.next }">
+					<a class="list_next_btn btn" href="list?curPage=${pageMaker.curPage + 1 }">다음 버튼</a>
+				</c:if>
             </div>
         </section>
         <footer class="footer">

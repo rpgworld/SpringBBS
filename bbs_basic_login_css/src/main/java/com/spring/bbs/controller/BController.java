@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.bbs.dao.BDao;
+import com.spring.bbs.dto.PageMaker;
 
 @Controller
 public class BController {
@@ -36,13 +37,9 @@ public class BController {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}
 		
-		int start = WRITING_PER_PAGE * (curPage - 1) + 1;
-		int end = WRITING_PER_PAGE * curPage;
-		model.addAttribute("list", dao.list(start, end));
-		
-		
-		int pageCnt = (dao.pageCnt() - 1) / WRITING_PER_PAGE + 1;
-		model.addAttribute("pageCnt", pageCnt);
+		PageMaker pageMaker = new PageMaker(curPage, dao.bbsCnt());
+		model.addAttribute("list", dao.list(pageMaker.getStartIndex(), pageMaker.getEndIndex()));
+		model.addAttribute("pageMaker", pageMaker);
 		
 		return "list";
 	}
@@ -200,8 +197,8 @@ public class BController {
 		model.addAttribute("list", dao.search(searchOption, searchWord, start, end));
 		
 		
-		int pageCnt = (dao.pageCnt() - 1) / WRITING_PER_PAGE + 1;
-		model.addAttribute("pageCnt", pageCnt);
+		int bbsCnt = (dao.bbsCnt() - 1) / WRITING_PER_PAGE + 1;
+		model.addAttribute("pageCnt", bbsCnt);
 		
 		return "list";
 	}

@@ -62,7 +62,6 @@ public class BController {
 		PageMaker pageMaker = new PageMaker(curPage, dao.bbsCnt());
 		model.addAttribute("list", dao.list(pageMaker.getStartIndex(), pageMaker.getEndIndex()));
 		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("curPage", curPage);
 		
 		return "list";
 	}
