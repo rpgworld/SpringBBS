@@ -1,5 +1,7 @@
 package com.spring.bbs.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.bbs.dao.UDao;
 import com.spring.bbs.dto.UDto;
@@ -78,5 +82,18 @@ public class UController {
 		dao.join(dto);
 		
 		return "redirect:list";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/idCheck", method=RequestMethod.GET)
+	public int idCheck(HttpServletRequest request) {
+		logger.info("idCheck()");
+		
+		String id = request.getParameter("id");
+		UDao dao = sqlSession.getMapper(UDao.class);
+		int result = dao.idCheck(id);
+
+		
+		return result;
 	}
 }

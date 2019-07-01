@@ -5,4 +5,5 @@ import com.spring.bbs.dto.UDto;
 public interface UDao {
 	public void join(UDto dto);
 	public String login(String id);
+	public int idCheck(String id);
 }

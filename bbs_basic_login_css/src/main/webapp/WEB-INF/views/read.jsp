@@ -514,22 +514,22 @@ $('document').ready(function(){
                 <tbody>
                     <tr>
                         <th>글제목</th>
-                        <td><input type="text" name="title" class="read_subject" value="${dto.title }"></td>
+                        <td><input type="text" name="title" class="read_subject" value="${dto.title }" readOnly></td>
                         <th>조회수</th>
                         <td class="read_cnt">${dto.hit }</td>
                     </tr>
                     <tr>
                         <th>글쓴이</th>
-                        <td><input type="text" name="name" class="read_author" value="${dto.name}"></td>
+                        <td><input type="text" name="name" class="read_author" value="${dto.name}" readOnly></td>
                         <th>날짜</th>
-                        <td class="read_date">${dto.writeDate } ${dto.writeTime }</td>
+                        <td class="read_date" readOnly>${dto.writeDate } ${dto.writeTime }</td>
                     </tr>
                     <tr>
                         <th>다운로드</th>
                         <td colspan="3"> &nbsp;</td>
                     </tr>
                     <tr>
-                        <td colspan="4"><textarea class="read_content">${dto.content}</textarea></td>
+                        <td colspan="4"><textarea class="read_content" readOnly>${dto.content}</textarea></td>
                     </tr>
                     <tr>
                         <th>첨부</th>

@@ -198,6 +198,7 @@ td input{
 height: 30px;
 width: 96%;
 border: 0;
+color: black;
 }
 .id_input {
 border-right: none;
@@ -464,6 +465,32 @@ function pw_check() {
         $('.pw_check').empty();
     }
 }
+function id_check() {
+	
+	var id = $('.id').val();
+	
+	if(id == '') {
+		alert('아이디를 입력해 주세요.');
+		return;
+	}
+	
+	$.ajax({
+		type : 'GET',
+		data : {'id' :  id},
+		url : '/bbs/idCheck',
+		dataType : 'json',
+		contentType:'application/json; charset=utf-8',
+		success : function(result) {
+			
+			if (result == 1) { // 아이디가 존재한다면
+				alert('존재하는 아이디 입니다.');
+			
+			} else {
+				alert('사용 가능한 아이디 입니다.');
+			}
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -521,7 +548,7 @@ function pw_check() {
                 <tbody>
                    <tr>
                     <th>아이디</th>
-                    <td class="id_input"><input type="text" name="id" maxlength="20"></td>
+                    <td class="id_input"><input type="text" class="id" name="id" maxlength="20"></td>
                     <td class="id_check"><input type="button" class="id_check_btn" onclick="id_check()" value="중복확인"></td>
                    </tr>
                    <tr>
